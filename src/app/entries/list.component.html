@@ -1,0 +1,36 @@
+﻿<h1>Entries</h1>
+<a routerLink="add" class="btn btn-sm btn-success mb-2">Add Entrie</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th style="width: 10%">Date</th>
+            <th style="width: 30.0%">Text</th>
+            <th style="width: 15%">Number</th>
+            <th style="width: 35.0%">Image</th>
+            <th style="width: 10%"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let entrie of entries">
+            <td>{{entrie.date | date:'dd.MM.yyyy'}}</td>
+            <td>{{entrie.text}}</td>
+            <td>{{entrie.number}}</td>
+            <img class="images" [src]="apiUrl + entrie.image"
+            onerror="this.onerror=null; this.src='Default.jpg'" alt="" width="350" height="auto" style="
+            margin-top: 20px;
+            margin-bottom: 20px;">
+            <td style="white-space: nowrap">
+                <a routerLink="edit/{{entrie.id}}" class="btn btn-sm btn-primary mr-1">Edit</a>
+                <button (click)="deleteEntrie(entrie.id)" class="btn btn-sm btn-danger btn-delete-entrie" [disabled]="entrie.isDeleting">
+                    <span *ngIf="entrie.isDeleting" class="spinner-border spinner-border-sm"></span>
+                    <span *ngIf="!entrie.isDeleting">Delete</span>
+                </button>
+            </td>
+        </tr>
+        <tr *ngIf="!entries">
+            <td colspan="4" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </tbody>
+</table>

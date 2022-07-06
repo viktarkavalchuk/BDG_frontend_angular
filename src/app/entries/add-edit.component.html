@@ -1,0 +1,43 @@
+﻿<h1 *ngIf="isAddMode">Add Entrie</h1>
+<h1 *ngIf="!isAddMode">Edit Entrie</h1>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-row">
+        <div class="form-group col">
+            <label for="date">Date</label>
+            <input type="date" formControlName="date" class="form-control"/>
+        </div>
+        <div class="form-group col">
+            <label for="number">Number</label>
+            <input type="number" formControlName="number" class="form-control" />
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col">
+            <label for="text">Text</label>
+            <textarea type="text" cols="40" rows="20" formControlName="text" class="form-control"></textarea>
+        </div>
+        <div class="form-column">
+            <div class="form-group col">
+                <label for="image">Image</label>
+                <input type="file" formControlName="image" style="
+                padding-top: 4px;
+                padding-left: 4px;
+                padding-bottom: 4px;
+                padding-right: 4px;
+            " class="form-control" (change)="selectFile($event)">
+            </div>
+            <div [innerHtml]='msg' *ngIf="msg" style="color: red;"></div>
+            
+            <img class="images" formControlName="image_src" [src]="imageURL"
+                onerror="this.onerror=null; this.src='Default.jpg'" alt="" width="auto" height="420"
+                style="margin-top: 20px;margin-bottom: 20px;margin-left: 15px;">
+            </div>
+        </div>
+    <div class="form-group">
+        <button [disabled]="loading" class="btn btn-primary">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Save
+        </button>
+        <a routerLink="/data" class="btn btn-link">Cancel</a>
+    </div>
+</form>
